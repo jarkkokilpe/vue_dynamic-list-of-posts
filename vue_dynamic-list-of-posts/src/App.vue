@@ -6,7 +6,6 @@
     <!-- UserLogin -->
     <UserLogin v-else @login="handleLogin" @register="handleRegister" />
 
-    
     <!-- Main App View -->
     <main v-if="isLoggedIn" class="section">
       <div class="container">
@@ -16,13 +15,13 @@
             class="posts-list-container"
             :class="{ 'posts-list--shrunk': isSidebarOpen }"
           >
-          <PostsList
-            :posts="posts"
-            :selectedPostId="selectedPost?.id"
-            :loading="loadingPosts"
-            @add-post="openSidebarForNewPost"
-            @open-post="toggleSidebarForPost"
-          />
+            <PostsList
+              :posts="posts"
+              :selectedPostId="selectedPost?.id"
+              :loading="loadingPosts"
+              @add-post="openSidebarForNewPost"
+              @open-post="toggleSidebarForPost"
+            />
           </div>
 
           <!-- Sidebar -->
@@ -45,8 +44,6 @@ import PostsList from './components/PostsList.vue';
 import Sidebar from './components/SideBar.vue';
 import AppHeader from './components/AppHeader.vue';
 import UserLogin from './components/UserLogin.vue';
-//import NoCommentsYet from './components/NoCommentsYet.vue';
-//import WriteCommentButton from './components/WriteCommentButton.vue';
 
 export default {
   components: {
@@ -54,8 +51,6 @@ export default {
     Sidebar,
     AppHeader,
     UserLogin,
-    //NoCommentsYet,
-    //WriteCommentButton,
   },
   data() {
     return {
@@ -74,10 +69,8 @@ export default {
     },
     toggleSidebarForPost(postId) {
       if (this.selectedPost?.id === postId) {
-        // If the same post is clicked, toggle the sidebar
         this.closeSidebar();
       } else {
-        // Open the sidebar for the selected post
         this.selectedPost = this.posts.find(post => post.id === postId);
         this.isSidebarOpen = true;
       }
@@ -97,11 +90,9 @@ export default {
     },
     updatePost(updatedPost) {
       const postIndex = this.posts.findIndex(post => post.id === updatedPost.id);
-
       if (postIndex !== -1) {
         this.posts.splice(postIndex, 1, updatedPost);
       }
-
       this.selectedPost = updatedPost;
     },
     handleLogout() {
@@ -110,7 +101,6 @@ export default {
       console.log('User logged out');
     },
     handleLogin(email) {
-      // Check if the user exists in local storage
       const user = JSON.parse(localStorage.getItem(email));
       if (user) {
         this.currentUser = user;
@@ -119,9 +109,9 @@ export default {
       } else {
         console.error('User not found. Please register.');
       }
-      this.loadingPosts = true; 
+      this.loadingPosts = true;
       setTimeout(() => {
-        this.loadingPosts = false; 
+        this.loadingPosts = false;
       }, 1500);
     },
     handleRegister(user) {
@@ -129,7 +119,7 @@ export default {
       this.currentUser = user;
       this.isLoggedIn = true;
       console.log('User registered and logged in:', user);
-    }
+    },
   },
 };
 </script>
@@ -139,11 +129,11 @@ export default {
   flex-grow: 1;
   flex-shrink: 1;
   transition: flex-basis 0.5s ease-in-out, max-width 0.5s ease-in-out;
-  max-width: 100%; /* Full width when the sidebar is closed */
+  max-width: 100%;
 }
 
 .posts-list--shrunk {
-  max-width: 50%; /* Shrink to 50% when the sidebar is open */
+  max-width: 50%;
 }
 
 .tile.is-ancestor {
@@ -154,12 +144,12 @@ export default {
 .Sidebar {
   flex-shrink: 0;
   transition: max-width 0.5s ease-in-out, opacity 0.5s ease-in-out;
-  max-width: 0; /* Hidden by default */
+  max-width: 0;
   opacity: 0;
 }
 
 .Sidebar--open {
-  max-width: 50%; /* Expand to 50% of the screen width */
+  max-width: 50%;
   opacity: 1;
 }
 </style>
