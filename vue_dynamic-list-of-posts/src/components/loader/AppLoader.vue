@@ -1,12 +1,21 @@
 <template>
-  <div class="app-loader">
-    <div class="spinner"></div>
+  <div class="app-loader" role="status" aria-label="Loading">
+    <div
+      class="spinner"
+      :style="{ width: size + 'px', height: size + 'px', borderWidth: size / 10 + 'px' }"
+    ></div>
   </div>
 </template>
 
 <script>
 export default {
   name: 'AppLoader',
+  props: {
+    size: {
+      type: Number,
+      default: 40,
+    },
+  },
 };
 </script>
 

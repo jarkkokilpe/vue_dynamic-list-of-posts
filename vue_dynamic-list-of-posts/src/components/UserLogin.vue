@@ -50,7 +50,7 @@
       <div class="field">
         <button type="submit" class="button is-primary" :disabled="isLoading">
           <template v-if="isLoading">
-            <AppLoader />
+            <AppLoader size="20"/>
           </template>
           <template v-else>
             {{ step === 1 ? 'Login' : 'Register' }}
